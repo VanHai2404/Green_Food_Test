@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { pulicRoutes } from "./routes/routes";
+import defaultLayout from "./Components/Layout/DefaultLayout";
+
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router >
+      <div className="App">
+        <Routes>
+          {
+            pulicRoutes.map((route,index)=>{
+              const Layout =route.Layout || defaultLayout;
+              const Page =route.component;
+              return <Route key={index} path={route.path} 
+              element ={
+              <Layout>
+                <Page/>
+              </Layout>
+              } 
+              />
+            })
+          }
+        </Routes>
+
+      </div>
+
+
+    </Router>
+
   );
 }
 
